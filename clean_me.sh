@@ -1,8 +1,8 @@
 #!/bin/sh
-cd SoftFloat-3e/build/Linux-x86_64-GCC/
+cd addins/berkeley-softfloat-3/build/Linux-x86_64-GCC/
 make clean
-cd ../../..
-cd TestFloat-3ed/build/Linux-x86_64-GCC/
+cd ../../../..
+cd addins/berkeley-testfloat-3/build/Linux-x86_64-GCC/
 make clean
-cd ../../..
+cd ../../../..
 
