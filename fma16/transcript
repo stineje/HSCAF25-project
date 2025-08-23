@@ -1,19 +1,21 @@
 # do fma16.do
 # QuestaSim-64 vlog 2023.4_3 Compiler 2024.02 Feb 17 2024
-# Start time: 15:51:17 on Aug 23,2025
+# Start time: 17:53:23 on Aug 23,2025
 # vlog -lint fma16.sv testbench.sv 
 # -- Compiling module fma16
+# ** Warning: fma16.sv(31): (vlog-2623) Undefined variable: Pm.
 # -- Compiling module tb_fma16
 # 
 # Top level modules:
 # 	tb_fma16
-# End time: 15:51:17 on Aug 23,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
+# End time: 17:53:23 on Aug 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
 # vsim -voptargs="+acc" work.tb_fma16 
-# Start time: 15:51:17 on Aug 23,2025
+# Start time: 17:53:23 on Aug 23,2025
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# ** Warning: fma16.sv(31): (vopt-2623) Undefined variable: Pm.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
 # //  Questa Sim-64
 # //  Version 2023.4_3 linux_x86_64 Feb 17 2024
 # //
@@ -35,5 +37,5 @@
 #    Time: 55 ns  Iteration: 1  Instance: /tb_fma16
 # Break in Module tb_fma16 at testbench.sv line 59
 # Stopped at testbench.sv line 59
-# End time: 15:51:17 on Aug 23,2025, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 1
+# End time: 17:53:23 on Aug 23,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2

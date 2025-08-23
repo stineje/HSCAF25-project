@@ -27,8 +27,14 @@ module fma16 (x, y, z, mul, add, negr, negz,
    logic [9:0] 	       Xm, Ym, Zm;
    logic 	       Xs, Ys, Zs;
 
-   // stubbed ideas
-   assign Pm = Xm * Ym;   
+   // stubbed ideas for instantiation ideas
+   
+   // fmaexpadd expadd(.Xe, .Ye, .XZero, .YZero, .Pe);
+   // fmamult mult(.Xm, .Ym, .Pm);
+   // fmasign sign(.OpCtrl, .Xs, .Ys, .Zs, .Ps, .As, .InvA);
+   // fmaalign align(.Ze, .Zm, .XZero, .YZero, .ZZero, .Xe, .Ye, .Am, .ASticky, .KillProd);
+   // fmaadd add(.Am, .Pm, .Ze, .Pe, .Ps, .KillProd, .ASticky, .AmInv, .PmKilled, .InvA, .Sm, .Se, .Ss);
+   // fmalza lza (.A(AmInv), .Pm(PmKilled), .Cin(InvA & (~ASticky | KillProd)), .sub(InvA), .SCnt);
 
  
 endmodule
