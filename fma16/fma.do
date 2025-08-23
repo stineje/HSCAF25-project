@@ -6,11 +6,16 @@
 onbreak {resume}
 
 # create library
-vlib worklib
+if [file exists work] {
+    vdel -all
+}
+vlib work
 
-vlog -lint -sv -work worklib fma16.sv testbench.sv
-vopt +acc worklib.testbench_fma16 -work worklib -o testbenchopt
-vsim -lib worklib testbenchopt
+# compile source files
+vlog -lint fma16.sv testbench.sv
+
+# start and run simulation
+vsim -voptargs=+acc work.testbench_fma16
 
 add wave sim:/testbench_fma16/clk
 add wave sim:/testbench_fma16/reset
