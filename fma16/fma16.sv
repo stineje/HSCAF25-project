@@ -21,9 +21,15 @@ module fma16 (x, y, z, mul, add, negr, negz,
    input logic [1:0]   roundmode;
    
    output logic [15:0] result;
-   output logic [3:0]  flags;   
+   output logic [3:0]  flags;
 
-   // 00: rz, 01: rne, 10: rp, 11: rn   
+   logic [4:0] 	       Xe, Ye, Ze;
+   logic [9:0] 	       Xm, Ym, Zm;
+   logic 	       Xs, Ys, Zs;
+
+   // stubbed ideas
+   assign Pm = Xm * Ym;   
+
  
 endmodule
 

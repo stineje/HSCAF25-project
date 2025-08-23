@@ -108,7 +108,8 @@ void prepTests(uint16_t *e, uint16_t *f, char *testName, char *desc, float16_t *
         }
 }
 
-void genMulTests(uint16_t *e, uint16_t *f, int sgn, char *testName, char *desc, int roundingMode, int zeroAllowed, int infAllowed, int nanAllowed) {
+void genMulTests(uint16_t *e, uint16_t *f, int sgn, char *testName, char *desc,
+                 int roundingMode, int zeroAllowed, int infAllowed, int nanAllowed) {
     int i, j, k, numCases;
     float16_t x, y, z;
     float16_t cases[100000];
@@ -116,38 +117,54 @@ void genMulTests(uint16_t *e, uint16_t *f, int sgn, char *testName, char *desc, 
     char fn[80];
  
     sprintf(fn, "work/%s.tv", testName);
+
+    // Print notice to console about output
+    printf("Generating test vectors -> writing to file: %s\n", fn);
+
     if ((fptr = fopen(fn, "w")) == 0) {
-        printf("Error opening to write file %s.  Does directory exist?\n", fn);
+        printf("Error opening file %s for writing. Does directory exist?\n", fn);
         exit(1);
     }
+
     prepTests(e, f, testName, desc, cases, fptr, &numCases);
     z.v = 0x0000;
-    for (i=0; i < numCases; i++) { 
+    for (i = 0; i < numCases; i++) { 
         x.v = cases[i].v;
-        for (j=0; j<numCases; j++) {
+        for (j = 0; j < numCases; j++) {
             y.v = cases[j].v;
-            for (k=0; k<=sgn; k++) {
-                y.v ^= (k<<15);
-                genCase(fptr, x, y, z, 1, 0, 0, 0, roundingMode, zeroAllowed, infAllowed, nanAllowed);
+            for (k = 0; k <= sgn; k++) {
+                y.v ^= (k << 15);
+                genCase(fptr, x, y, z, 1, 0, 0, 0,
+                        roundingMode, zeroAllowed, infAllowed, nanAllowed);
             }
         }
     }
     fclose(fptr);
+
+    // Confirm finished writing
+    printf("Finished writing file: %s\n", fn);
 }
 
-int main()
-{
-    if (system("mkdir -p work") != 0) exit(1); // create work directory if it doesn't exist
+int main() {
+
+  if (system("mkdir -p work") != 0) exit(1); // create work directory if needed
     softfloatInit(); // configure softfloat modes
  
     // Test cases: multiplication
-    genMulTests(easyExponents, easyFracts, 0, "fmul_0", "// Multiply with exponent of 0, significand of 1.0 and 1.1, RZ", 0, 0, 0, 0);
+    genMulTests(easyExponents, easyFracts, 0,
+                "fmul_0",
+                "// Multiply with exponent of 0, significand of 1.0 and 1.1, RZ",
+                0, 0, 0, 0);
 
-/*  // example of how to generate tests with a different rounding mode
+    /* Example with different rounding mode:
     softfloat_roundingMode = softfloat_round_near_even; 
-    genMulTests(easyExponents, easyFracts, 0, "fmul_0_rne", "// Multiply with exponent of 0, significand of 1.0 and 1.1, RNE", 1, 0, 0, 0); */
+    genMulTests(easyExponents, easyFracts, 0,
+                "fmul_0_rne",
+                "// Multiply with exponent of 0, significand of 1.0 and 1.1, RNE",
+                1, 0, 0, 0);
+    */
 
-    // Add your cases here
-  
+    printf("All test generation complete. Output files are located in ./work\n");
     return 0;
 }
+
