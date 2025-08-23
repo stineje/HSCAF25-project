@@ -1,6 +1,5 @@
 // fma16.sv
 // David_Harris@hmc.edu 26 February 2022
-// 16-bit floating-point multiply-accumulate
 
 // Operation: general purpose multiply, add, fma, with optional negation
 //   If mul=1, p = x * y.  Else p = x.
