@@ -23,7 +23,7 @@ module tb_fma16;
    // Define the output file
    initial
      begin
-	handle3 = $fopen("sample.out");
+	handle3 = $fopen("fma16.out");
 	vectornum = 0;
 	errors = 0;		
      end   

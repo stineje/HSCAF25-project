@@ -2,7 +2,6 @@
 *.o
 *.vvp
 *.vcd
-*.out
 *.log
 
 # Ignore simulation tool temporary files
