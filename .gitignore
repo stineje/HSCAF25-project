@@ -27,5 +27,19 @@ work/
 # Ignore system files
 .DS_Store
 *.swp
+*.swo
 *.bak
 *.tmp
+
+# Ignore Emacs temporary and backup files
+*~
+\#*\#
+*.elc
+.auto-save-list
+tramp
+
+# Ignore VS Code settings and workspace files
+.vscode/
+.history/
+*.code-workspace
+
