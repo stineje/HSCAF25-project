@@ -2,7 +2,7 @@
 // David_Harris@hmc.edu 21 April 2025
 //  synthesis wrapper for fma providing clock and registers for timing analysis
 
-module fma16wrapper(
+module fma16_wrapper(
   input  logic        clk,
   input  logic [15:0] x, y, z,
   input  logic        mul, add, negp, negz,
