@@ -3,7 +3,7 @@
 set CURRENT_DIR  [exec pwd]
 set search_path [list "./" ]
 
-set timing_lib /classes/ecen4233S22/tech_files
+set timing_lib /SKY90
 set s9lib $timing_lib
 lappend search_path $s9lib
 lappend search_path ./vcd
