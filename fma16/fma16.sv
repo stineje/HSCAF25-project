@@ -1,5 +1,4 @@
 // fma16.sv
-// David_Harris@hmc.edu 26 February 2022
 
 // Operation: general purpose multiply, add, fma, with optional negation
 //   If mul=1, p = x * y.  Else p = x.
@@ -14,11 +13,11 @@
 //   fnmsub: mul = 1, add = 1, negr = 1, negz = 1
 
 module fma16 (x, y, z, mul, add, negr, negz,
-	      roundmode, result, flags);
+	      FrmM, result, flags);
    
    input logic [15:0]  x, y, z;   
    input logic 	       mul, add, negr, negz;
-   input logic [1:0]   roundmode;
+   input logic [1:0]   FrmM; // rounding mode
    
    output logic [15:0] result;
    output logic [3:0]  flags;
