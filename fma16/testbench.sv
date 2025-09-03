@@ -2,17 +2,17 @@
 module tb_fma16;
    logic        clk, reset;
    logic [15:0] x, y, z, rexpected, result;
-   logic [7:0] 	ctrl;
-   logic        mul, add, negp, negz;
-   logic [1:0] 	roundmode;
+   logic [3:0] 	ctrl;
+   logic [1:0] 	FOpCtrlE;
+   logic [1:0] 	FrmM;
    logic [31:0] vectornum, errors;
-   logic [75:0] testvectors[10000:0];
+   logic [72:0] testvectors[10000:0];
    logic [3:0] 	flags, flagsexpected; // Invalid, Overflow, Underflow, Inexact
-   
+
    integer 	handle3;
    
   // instantiate device under test
-   fma16 dut(x, y, z, mul, add, negp, negz, roundmode, result, flags);
+   fma16 dut(x, y, z, FOpCtrlE, FrmM, result, flags);
    
    // generate clock
    always 
@@ -40,7 +40,7 @@ module tb_fma16;
   always @(posedge clk)
     begin
       #1; {x, y, z, ctrl, rexpected, flagsexpected} = testvectors[vectornum];
-      {roundmode, mul, add, negp, negz} = ctrl[5:0];
+      {FrmM, FOpCtrlE} = ctrl[3:0];
     end
 
    // check results on falling edge of clk

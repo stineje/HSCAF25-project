@@ -3,36 +3,34 @@
 //  synthesis wrapper for fma providing clock and registers for timing analysis
 
 module fma16_wrapper(
-  input  logic        clk,
-  input  logic [15:0] x, y, z,
-  input  logic        mul, add, negp, negz,
-  input  logic [1:0]  FrmM,  // 00: rz, 01: rne, 10: rp, 11: rn
+  input logic 	      clk,
+  input logic [15:0]  x, y, z,
+  input logic [1:0]   FOpCtrlE; 
+  input logic [1:0]   FrmM, // 00: rz, 01: rne, 10: rp, 11: rn
   output logic [15:0] result,
   output logic [3:0]  flags // invalid, overflow, underflow, inexact
 );
-
-  logic [15:0] xint, yint, zint;
-  logic        mulint, addint, negpint, negzint;
-  logic [1:0]  FrmMint;
-  logic [15:0] resultint;
-  logic [3:0]  flagsint;
-
-  // flip-flops to put timing constraints on inputs
-  always_ff @(posedge clk) begin
-    {xint, yint, zint} <= {x, y, z};
-    {mulint, addint, negpint, negzint} <= {mul, add, negp, negz};
-    FrmMint <= FrmM;
-  end
-
-  // module being synthesized
-  fma16 fma16(xint, yint, zint,
-              mulint, addint, negpint, negzint,
-              FrmMint,
-              resultint, flagsint);
-
-  // flip-flops to put timing constraints on outputs
-  always_ff @(posedge clk) begin
-    {result, flags} <= {resultint, flagsint};
-  end
-
+   
+   logic [15:0]       xint, yint, zint;
+   logic [1:0] 	      FOpCtrlEint;
+   logic [1:0] 	      FrmMint;
+   logic [15:0]       resultint;
+   logic [3:0] 	      flagsint;
+   
+   // flip-flops to put timing constraints on inputs
+   always_ff @(posedge clk) begin
+      {xint, yint, zint} <= {x, y, z};
+      FrOpCtrlEint <= FOpCtrlE;
+      FrmMint <= FrmM;
+   end
+   
+   // module being synthesized
+   fma16 fma16(xint, yint, zint, FOpCtrlEint, FrmMint,
+               resultint, flagsint);
+   
+   // flip-flops to put timing constraints on outputs
+   always_ff @(posedge clk) begin
+      {result, flags} <= {resultint, flagsint};
+   end
+   
 endmodule  

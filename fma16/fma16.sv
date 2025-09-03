@@ -12,11 +12,11 @@
 //   fnmadd: mul = 1, add = 1, negr = 1, negz = 0
 //   fnmsub: mul = 1, add = 1, negr = 1, negz = 1
 
-module fma16 (x, y, z, mul, add, negr, negz,
-	      FrmM, result, flags);
+module fma16 (x, y, z, FOpCtrlE, FrmM, result, flags);
    
-   input logic [15:0]  x, y, z;   
-   input logic 	       mul, add, negr, negz;
+   input logic [15:0]  x, y, z;
+   input logic [1:0]   FOpCtrlE;
+   
    input logic [1:0]   FrmM; // rounding mode
    
    output logic [15:0] result;
@@ -25,6 +25,12 @@ module fma16 (x, y, z, mul, add, negr, negz,
    logic [4:0] 	       Xe, Ye, Ze;
    logic [9:0] 	       Xm, Ym, Zm;
    logic 	       Xs, Ys, Zs;
+   logic 	       mul, add, negr, negz;
+
+   assign mul = ~FOpCtrlE[1] & ~FOpCtrlE[0];  // 00 → 0001
+   assign add = ~FOpCtrlE[1] &  FOpCtrlE[0];  // 01 → 0010
+   assign negr =  FOpCtrlE[1] & ~FOpCtrlE[0]; // 10 → 0100
+   assign negz =  FOpCtrlE[1] &  FOpCtrlE[0]; // 11 → 1000   
 
    // stubbed ideas for instantiation ideas
    
